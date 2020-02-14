@@ -40,7 +40,8 @@ app.post('/auth/login', login);
 app.get('/auth/logout', logout);
 
 var treasureCtrl = require('./controller/treasureController');
-let { dragonTreasure, getUserTreasure } =  treasureCtrl;
+let { dragonTreasure, getUserTreasure, addUserTreasure } =  treasureCtrl;
 
 app.get('/api/treasure/dragon', dragonTreasure);
-app.get('/api/treasure/user', usersOnly, getUserTreasure )
+app.get('/api/treasure/user', usersOnly, getUserTreasure);
+app.post('/api/treasure/user', usersOnly, addUserTreasure);

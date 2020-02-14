@@ -20,7 +20,20 @@ var getUserTreasure = async (req, res) => {
     .send(treasure);
 }
 
+var addUserTreasure = async (req, res) => {
+    let { treasureURL } = req.body;
+    let { id } = req.session.user;
+    var db = req.app.get('db');
+
+    var userTreasure = await db.add_user_treasure(treasureURL, id);
+
+    res
+    .status(200)
+    .send(userTreasure);
+}
+
 module.exports = {
     dragonTreasure,
-    getUserTreasure
+    getUserTreasure,
+    addUserTreasure
 }
