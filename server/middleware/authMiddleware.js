@@ -7,6 +7,17 @@ var usersOnly = (req, res, next) => {
     next();
 }
 
+var adminsOnly = (req, res, next) => {
+    let {isAdmin} = req.session.user;
+    if(!isAdmin){
+        res
+        .status(403)
+        .send('You are not an admin')
+    }
+    next();
+}
+
 module.exports = {
-    usersOnly
+    usersOnly,
+    adminsOnly
 }

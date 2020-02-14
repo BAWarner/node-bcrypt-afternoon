@@ -5,7 +5,7 @@ const massive = require('massive');
 const app = express();
 
 var auth = require('./middleware/authMiddleware');
-let { usersOnly } = auth;
+let { usersOnly, adminsOnly } = auth;
 
 let { SERVER_PORT, CONNECTION_STRING, SESSION_SECRET } = process.env;
 
@@ -40,8 +40,9 @@ app.post('/auth/login', login);
 app.get('/auth/logout', logout);
 
 var treasureCtrl = require('./controller/treasureController');
-let { dragonTreasure, getUserTreasure, addUserTreasure } =  treasureCtrl;
+let { dragonTreasure, getUserTreasure, addUserTreasure, getAllTreasure } =  treasureCtrl;
 
 app.get('/api/treasure/dragon', dragonTreasure);
 app.get('/api/treasure/user', usersOnly, getUserTreasure);
 app.post('/api/treasure/user', usersOnly, addUserTreasure);
+app.get('/api/treasure/all', usersOnly, adminsOnly, getAllTreasure);
